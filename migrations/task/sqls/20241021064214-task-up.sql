@@ -24,9 +24,9 @@ values ('李燕容', 'lee2000@hexschooltest.io','USER'),
 	   ('透明人','opacity0@hexschooltest.io','USER');
 
 -- 1-2 修改：用 Email 找到 李燕容、肌肉棒子、Q太郎，如果他的 Role 為 USER 將他的 Role 改為 COACH
-update "USER"
-SET role = 'COACH'
-WHERE email IN ('lee2000@hexschooltest.io', 'muscle@hexschooltest.io', 'starplatinum@hexschooltest.io');
+update "USER" 
+set role = 'COACH'
+where email in ('lee2000@hexschooltest.io', 'muscle@hexschooltest.io', 'starplatinum@hexschooltest.io');
 
 -- 1-3 刪除：刪除USER 資料表中，用 Email 找到透明人，並刪除該筆資料
 delete from "USER"
@@ -208,14 +208,9 @@ insert into "COURSE_BOOKING" (user_id, course_id, booking_at, status) values
     -- 1. 取消預約時間`cancelled_at` 設為2024-11-24 17:00:00
     -- 2. 狀態`status` 設定為課程已取消
 
-UPDATE "COURSE_BOOKING"
-SET 
-  cancelled_at = '2024-11-24 17:00:00',
-  status = '課程已取消'
-WHERE 
-  user_id = (SELECT id FROM "USER" WHERE email = 'wXlTq@hexschooltest.io')
-  AND course_id = (SELECT id FROM "COURSE" WHERE user_id = (SELECT id FROM "USER" WHERE email = 'lee2000@hexschooltest.io'))
-  AND status = '即將授課';
+update "COURSE_BOOKING" set cancelled_at = '2024-11-24 17:00:00',status = '課程已取消'
+where user_id = (select id from "USER" where email = 'wXlTq@hexschooltest.io')
+and course_id = (select id from "COURSE" where user_id = (select id from "USER" where email = 'lee2000@hexschooltest.io'));
 
 
 -- 5-3. 新增：`王小明`再次預約 `李燕容`   的課程，請在`COURSE_BOOKING`新增一筆資料：
@@ -243,14 +238,10 @@ where user_id = (
     -- 1. 請在該筆預約記錄他的加入直播室時間 `join_at` 設為2024-11-25 14:01:59
     -- 2. 狀態`status` 設定為上課中
 
-UPDATE "COURSE_BOOKING"
-SET 
-  join_at = '2024-11-25 14:01:59',
-  status = '上課中'
-WHERE 
-  user_id = (SELECT id FROM "USER" WHERE email = 'wXlTq@hexschooltest.io')
-  AND course_id = (SELECT id FROM "COURSE" WHERE user_id = (SELECT id FROM "USER" WHERE email = 'lee2000@hexschooltest.io'))
-  AND status = '即將授課';
+update "COURSE_BOOKING" set join_at = '2024-11-25 14:01:59', status= '上課中'
+where user_id = (select id from "USER" where email = 'wXlTq@hexschooltest.io')
+and course_id = (select id from "COURSE" where user_id = (select id from "USER" where email = 'lee2000@hexschooltest.io'))
+and status = '即將授課';
 
 -- 5-6. 查詢：計算用戶王小明的購買堂數，顯示須包含以下欄位： user_id , total。 (需使用到 SUM 函式與 Group By)
 
