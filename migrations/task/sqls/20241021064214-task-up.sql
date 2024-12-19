@@ -224,6 +224,7 @@ insert into "COURSE_BOOKING" (user_id, course_id, booking_at, status) values
   '2024-11-24 17:10:25',
   '即將授課');
 
+
 -- 5-4. 查詢：取得王小明所有的預約紀錄，包含取消預約的紀錄
 
 select * from "COURSE_BOOKING" 
