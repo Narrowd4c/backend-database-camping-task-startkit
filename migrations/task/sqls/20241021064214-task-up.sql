@@ -210,7 +210,8 @@ insert into "COURSE_BOOKING" (user_id, course_id, booking_at, status) values
 
 update "COURSE_BOOKING" set cancelled_at = '2024-11-24 17:00:00',status = '課程已取消' 
 where user_id = (select id from "USER" where email = 'wXlTq@hexschooltest.io') 
-and course_id = (select id from "COURSE" where user_id = (select id from "USER" where email = 'lee2000@hexschooltest.io'));
+and course_id = (select id from "COURSE" where user_id = (select id from "USER" where email = 'lee2000@hexschooltest.io'))
+and status = '即將授課';
 
 
 -- 5-3. 新增：`王小明`再次預約 `李燕容`   的課程，請在`COURSE_BOOKING`新增一筆資料：
@@ -242,7 +243,7 @@ update "COURSE_BOOKING" set join_at = '2024-11-25 14:01:59', status= '上課中'
 where user_id = (select id from "USER" where email = 'wXlTq@hexschooltest.io') 
 and course_id = (select id from "COURSE" where user_id = (select id from "USER" where email = 'lee2000@hexschooltest.io')) 
 and status = '即將授課';
-   
+
 -- 5-6. 查詢：計算用戶王小明的購買堂數，顯示須包含以下欄位： user_id , total。 (需使用到 SUM 函式與 Group By)
 
 select "CREDIT_PURCHASE".user_id, sum("CREDIT_PURCHASE".purchased_credits) as total
